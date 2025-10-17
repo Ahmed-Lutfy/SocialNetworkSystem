@@ -16,9 +16,14 @@ namespace Social.Application.Service.ServiceClasses
         {
             _unitOfWork = unitOfWork;
         }
-        public Task<Post> createPost(Post post)
+        public async Task<Post> createPost(Post post)
         {
-            return _unitOfWork.Repository<Post>().AddAsync(post);
+            return await _unitOfWork.Repository<Post>().AddAsync(post);
+        }
+
+        public async Task<IEnumerable<Post>> GetPosts()
+        {
+            return await _unitOfWork.Repository<Post>().GetAllAsync();
         }
     }
 }

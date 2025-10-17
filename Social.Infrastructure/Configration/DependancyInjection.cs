@@ -2,7 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Social.Domain.Interface;
 using Social.Infrastructure.Presistance.Data;
+using Social.Infrastructure.Presistance.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +21,10 @@ namespace Social.Infrastructure.Configration
             {
                 options.UseSqlServer(configuration.GetConnectionString("SocialNetworkSystem"));
             });
+
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IPostRepository, PostRepository>();
 
             return services;
         }
